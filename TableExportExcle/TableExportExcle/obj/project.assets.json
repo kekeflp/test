@@ -1287,11 +1287,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\vscode\\TableExportExcle\\TableExportExcle\\TableExportExcle.csproj",
+      "projectUniqueName": "D:\\test\\TableExportExcle\\TableExportExcle\\TableExportExcle.csproj",
       "projectName": "TableExportExcle",
-      "projectPath": "D:\\vscode\\TableExportExcle\\TableExportExcle\\TableExportExcle.csproj",
+      "projectPath": "D:\\test\\TableExportExcle\\TableExportExcle\\TableExportExcle.csproj",
       "packagesPath": "C:\\Users\\kekef\\.nuget\\packages\\",
-      "outputPath": "D:\\vscode\\TableExportExcle\\TableExportExcle\\obj\\",
+      "outputPath": "D:\\test\\TableExportExcle\\TableExportExcle\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

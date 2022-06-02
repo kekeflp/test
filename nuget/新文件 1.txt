@@ -1,8 +1,30 @@
-Microsoft.Data.Sqlite.Core
+System.Data.SQLite
 	Dependencies
-		net6.0
-		SQLitePCLRaw.core (>= 2.0.8-pre20220111224339)
-		
+		.NETFramework 2.0
+			System.Data.SQLite.Core (= 1.0.116)
+			System.Data.SQLite.Linq (= 1.0.116)
+		.NETFramework 4.0
+			System.Data.SQLite.Core (= 1.0.116)
+			System.Data.SQLite.EF6 (= 1.0.116)
+			System.Data.SQLite.Linq (= 1.0.116)
+		.NETFramework 4.5
+			System.Data.SQLite.Core (= 1.0.116)
+			System.Data.SQLite.EF6 (= 1.0.116)
+			System.Data.SQLite.Linq (= 1.0.116)
+		.NETFramework 4.5.1
+			System.Data.SQLite.Core (= 1.0.116)
+			System.Data.SQLite.EF6 (= 1.0.116)
+			System.Data.SQLite.Linq (= 1.0.116)
+		.NETFramework 4.6
+			System.Data.SQLite.Core (= 1.0.116)
+			System.Data.SQLite.EF6 (= 1.0.116)
+			System.Data.SQLite.Linq (= 1.0.116)
+		.NETStandard 2.0
+			System.Data.SQLite.Core (= 1.0.116)
+		.NETStandard 2.1
+			System.Data.SQLite.Core (= 1.0.116)
+			System.Data.SQLite.EF6 (= 1.0.116)
+				
 
 npoi.2.5.6
 	Dependencies
@@ -61,17 +83,6 @@ sqlite-net-pcl 1.8.116
 
 
 正在安装 NuGet 程序包 System.Data.SQLite 1.0.115.5。
-正在生成 MSBuild 文件 D:\vscode\TableExportExcle\TableExportExcle\obj\TableExportExcle.csproj.nuget.g.props。
-正在生成 MSBuild 文件 D:\vscode\TableExportExcle\TableExportExcle\obj\TableExportExcle.csproj.nuget.g.targets。
-将资产文件写入磁盘。路径: D:\vscode\TableExportExcle\TableExportExcle\obj\project.assets.json
-已从 TableExportExcle 成功卸载“Microsoft.NETCore.Platforms 2.0.0”
-已从 TableExportExcle 成功卸载“Microsoft.Win32.SystemEvents 4.5.0”
-已从 TableExportExcle 成功卸载“System.Configuration.ConfigurationManager 4.5.0”
-已从 TableExportExcle 成功卸载“System.Drawing.Common 4.5.0”
-已从 TableExportExcle 成功卸载“System.Security.AccessControl 4.5.0”
-已从 TableExportExcle 成功卸载“System.Security.Cryptography.ProtectedData 4.5.0”
-已从 TableExportExcle 成功卸载“System.Security.Permissions 4.5.0”
-已从 TableExportExcle 成功卸载“System.Security.Principal.Windows 4.5.0”
 已将“EntityFramework 6.4.4”成功安装到 TableExportExcle
 已将“Microsoft.CSharp 4.7.0”成功安装到 TableExportExcle
 已将“Microsoft.NETCore.Platforms 3.1.0”成功安装到 TableExportExcle
@@ -95,5 +106,5 @@ sqlite-net-pcl 1.8.116
 已将“System.Security.Permissions 4.7.0”成功安装到 TableExportExcle
 已将“System.Security.Principal.Windows 4.7.0”成功安装到 TableExportExcle
 已将“System.Windows.Extensions 4.7.0”成功安装到 TableExportExcle
-正在执行脚本文件“C:\Users\kekef\.nuget\packages\entityframework\6.4.4\tools\init.ps1”...
+正在执行脚本文件“\.nuget\packages\entityframework\6.4.4\tools\init.ps1”...
 执行 nuget 操作花费时间 2.47 秒

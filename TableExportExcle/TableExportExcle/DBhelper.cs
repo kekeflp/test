@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SQLite;
 
 namespace TableExportExcle
@@ -28,7 +29,7 @@ namespace TableExportExcle
                 cmd.Connection.Close();
             }
         }
-      
+
         public static object SelectForScalar(string sql, params SQLiteParameter[] parameters)
         {
             var cmd = Cmd;
@@ -47,7 +48,7 @@ namespace TableExportExcle
             }
         }
 
-      
+
         public static SQLiteDataReader? SelectForDataReader(string sql, params SQLiteParameter[] parameters)
         {
             var cmd = Cmd;
@@ -70,17 +71,23 @@ namespace TableExportExcle
 
         public static DataTable ExecuteTable(string sql, params SQLiteParameter[] parameters)
         {
-            var dt = new DataTable();
-            using (var sda = new SQLiteDataAdapter(sql, Con))
+            try
             {
-                if (parameters != null)
+                var dt = new DataTable();
+                using (var sda = new SQLiteDataAdapter(sql, Con))
                 {
-                    sda.SelectCommand.Parameters.AddRange(parameters);
+                    if (parameters != null)
+                    {
+                        sda.SelectCommand.Parameters.AddRange(parameters);
+                    }
+                    sda.Fill(dt);
                 }
-                sda.Fill(dt);
+                return dt;
             }
-            return dt;
+            catch
+            {
+                throw new ArgumentException("语法错误！");
+            }
         }
-
     }
 }

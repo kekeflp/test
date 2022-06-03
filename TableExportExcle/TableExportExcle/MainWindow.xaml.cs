@@ -5,20 +5,27 @@ using System.IO;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System;
+using MahApps.Metro.Controls;
+using System.Collections.Generic;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace TableExportExcle
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
+        ProgressBarBinding pbb = new ProgressBarBinding();
+        bool IsIncrease = true;
         public MainWindow()
         {
             InitializeComponent();
+            PsbProcess.DataContext = pbb;
+
         }
 
-
+        private List<string> _ts = new List<string>();
         private void TableToExcel()
         {
             SaveFileDialog sfd = new SaveFileDialog
@@ -53,7 +60,8 @@ namespace TableExportExcle
 
             if (TbxSql.Text.Contains("update") || TbxSql.Text.Contains("delete") || TbxSql.Text.Contains("drop"))
             {
-                MessageBox.Show("查询语句中不能包含update、delete、drop。", "警告", MessageBoxButton.OK);
+                this.ShowMessageAsync("警告", "查询语句中不能包含update、delete、drop。", MessageDialogStyle.Affirmative);
+                //MessageBox.Show("查询语句中不能包含update、delete、drop。导出失败！", "警告", MessageBoxButton.OK);
                 return;
             }
 

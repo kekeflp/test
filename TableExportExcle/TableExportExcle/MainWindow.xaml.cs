@@ -4,6 +4,7 @@ using NPOI.HSSF.UserModel;
 using System.IO;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using System;
 
 namespace TableExportExcle
 {
@@ -21,19 +22,21 @@ namespace TableExportExcle
         private void TableToExcel()
         {
             SaveFileDialog sfd = new SaveFileDialog
-            { 
-                Filter = "Excel file (*.xls)|*.xlsx|All files (*.*)|*.*",
+            {
+                Filter = "Excel文件|*.xls;*.xlsx|所有文件|*.*",
                 FilterIndex = 0,
                 RestoreDirectory = true,
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                FileName = "TestTable.xlsx",
                 Title = "Export Excel File"
             };
 
-            sfd.ShowDialog();
-          
+            // 如果没点OK，就跳出
+            if (sfd.ShowDialog() != true) return;
+
             IWorkbook workbook;
 
             string fileExt = sfd.FileName.Substring(sfd.FileName.LastIndexOf('.')).ToLower();
-            //string fileExt = System.IO.Path.GetExtension(file).ToLower();
             switch (fileExt)
             {
                 case ".xlsx":
@@ -45,6 +48,13 @@ namespace TableExportExcle
                 default:
                     workbook = null;
                     return;
+            }
+
+
+            if (TbxSql.Text.Contains("update") || TbxSql.Text.Contains("delete") || TbxSql.Text.Contains("drop"))
+            {
+                MessageBox.Show("查询语句中不能包含update、delete、drop。", "警告", MessageBoxButton.OK);
+                return;
             }
 
             // 从sql读取datatable
@@ -78,11 +88,9 @@ namespace TableExportExcle
             var buffer = stream.ToArray();
 
             // 将字节数组写入文件
-            using (FileStream fs = new FileStream(sfd.FileName, FileMode.Create, FileAccess.Write))
-            {
-                fs.Write(buffer, 0, buffer.Length);
-                fs.Flush();
-            }
+            using FileStream fs = new FileStream(sfd.FileName, FileMode.Create, FileAccess.Write);
+            fs.Write(buffer, 0, buffer.Length);
+            fs.Flush();
         }
 
         private void BtnOK_Click(object sender, RoutedEventArgs e)

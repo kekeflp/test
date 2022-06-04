@@ -17,7 +17,7 @@ namespace TableExportExcle
     public partial class MainWindow : MetroWindow
     {
         ProgressBarBinding pbb = new ProgressBarBinding();
-        bool IsIncrease = true;
+        //bool IsIncrease = true;
         public MainWindow()
         {
             InitializeComponent();
@@ -53,7 +53,6 @@ namespace TableExportExcle
                     workbook = new HSSFWorkbook();
                     break;
                 default:
-                    workbook = null;
                     return;
             }
 

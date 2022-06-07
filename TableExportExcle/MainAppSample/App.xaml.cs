@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Navigation;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using LoginControl;
 using MainAppSample.Interface;
@@ -10,7 +11,7 @@ namespace MainAppSample
     /// </summary>
     public partial class App : Application
     {
-        private IDialogService _ds;
+        //private IDialogService _ds;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -32,7 +33,7 @@ namespace MainAppSample
             }
             else
             {
-                _ds?.ShowError("授权失败，应用将关闭！", "错误信息", "OK");
+                //_ds?.ShowError("授权失败，应用将关闭！", "错误信息", "OK");
                 if (Application.Current.MainWindow != null)
                 {
                     Application.Current.MainWindow.Close();

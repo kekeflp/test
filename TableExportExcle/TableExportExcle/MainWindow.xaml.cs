@@ -6,8 +6,8 @@ using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System;
 using MahApps.Metro.Controls;
-using System.Collections.Generic;
 using MahApps.Metro.Controls.Dialogs;
+using System.Configuration;
 
 namespace TableExportExcle
 {
@@ -16,18 +16,19 @@ namespace TableExportExcle
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        ProgressBarBinding pbb = new ProgressBarBinding();
-        //bool IsIncrease = true;
         public MainWindow()
         {
             InitializeComponent();
-            PsbProcess.DataContext = pbb;
-
         }
 
-        private List<string> _ts = new List<string>();
         private void TableToExcel()
         {
+            if (TbxSql.Text.Contains("update") || TbxSql.Text.Contains("delete") || TbxSql.Text.Contains("drop"))
+            {
+                this.ShowMessageAsync("Error", "查询语句中不能包含update、delete、drop。", MessageDialogStyle.Affirmative);
+                return;
+            }
+
             SaveFileDialog sfd = new SaveFileDialog
             {
                 Filter = "Excel文件|*.xls;*.xlsx|所有文件|*.*",
@@ -56,48 +57,48 @@ namespace TableExportExcle
                     return;
             }
 
-
-            if (TbxSql.Text.Contains("update") || TbxSql.Text.Contains("delete") || TbxSql.Text.Contains("drop"))
+            try
             {
-                this.ShowMessageAsync("警告", "查询语句中不能包含update、delete、drop。", MessageDialogStyle.Affirmative);
-                //MessageBox.Show("查询语句中不能包含update、delete、drop。导出失败！", "警告", MessageBoxButton.OK);
-                return;
-            }
+                // 从sql读取datatable
+                var dt = DBhelper.ExecuteTable(TbxSql.Text.Trim());
 
-            // 从sql读取datatable
-            var dt = DBhelper.ExecuteTable(TbxSql.Text.Trim());
+                // 创建sheet页签
+                ISheet sheet = string.IsNullOrEmpty(dt.TableName) ? workbook.CreateSheet("Sheet1") : workbook.CreateSheet(dt.TableName);
 
-            // 创建sheet页签
-            ISheet sheet = string.IsNullOrEmpty(dt.TableName) ? workbook.CreateSheet("Sheet1") : workbook.CreateSheet(dt.TableName);
-
-            // 创建表头
-            IRow row = sheet.CreateRow(0);
-            for (int i = 0; i < dt.Columns.Count; i++)
-            {
-                ICell cell = row.CreateCell(i);
-                cell.SetCellValue(dt.Columns[i].ColumnName);
-            }
-
-            // 创建数据
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                IRow row1 = sheet.CreateRow(i + 1);
-                for (int j = 0; j < dt.Columns.Count; j++)
+                // 创建表头
+                IRow row = sheet.CreateRow(0);
+                for (int i = 0; i < dt.Columns.Count; i++)
                 {
-                    ICell cell = row1.CreateCell(j);
-                    cell.SetCellValue(dt.Rows[i][j].ToString());
+                    ICell cell = row.CreateCell(i);
+                    cell.SetCellValue(dt.Columns[i].ColumnName);
                 }
+
+                // 创建数据
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    IRow row1 = sheet.CreateRow(i + 1);
+                    for (int j = 0; j < dt.Columns.Count; j++)
+                    {
+                        ICell cell = row1.CreateCell(j);
+                        cell.SetCellValue(dt.Rows[i][j].ToString());
+                    }
+                }
+
+                // 转换成字节数组
+                MemoryStream stream = new MemoryStream();
+                workbook.Write(stream);
+                var buffer = stream.ToArray();
+
+                // 将字节数组写入文件
+                using FileStream fs = new FileStream(sfd.FileName, FileMode.Create, FileAccess.Write);
+                fs.Write(buffer, 0, buffer.Length);
+                fs.Flush();
+
             }
-
-            // 转换成字节数组
-            MemoryStream stream = new MemoryStream();
-            workbook.Write(stream);
-            var buffer = stream.ToArray();
-
-            // 将字节数组写入文件
-            using FileStream fs = new FileStream(sfd.FileName, FileMode.Create, FileAccess.Write);
-            fs.Write(buffer, 0, buffer.Length);
-            fs.Flush();
+            catch (Exception ex)
+            {
+                this.ShowMessageAsync("Error", ex.Message, MessageDialogStyle.Affirmative);
+            }
         }
 
         private void BtnOK_Click(object sender, RoutedEventArgs e)

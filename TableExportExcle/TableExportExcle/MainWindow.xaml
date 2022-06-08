@@ -2,15 +2,30 @@
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                  xmlns:local="clr-namespace:TableExportExcle"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 Title="Table Export Excle"
+                 Title="Table Export Excel"
                  Width="800"
                  Height="450"
-                 GlowBrush="Black"
+                 GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+                 ResizeMode="CanMinimize"
+                 ShowIconOnTitleBar="True"
+                 ShowMaxRestoreButton="False"
                  WindowStartupLocation="CenterScreen"
                  mc:Ignorable="d">
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <iconPacks:PackIconSimpleIcons Width="30"
+                                           Height="30"
+                                           Margin="4"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Foreground="{DynamicResource MahApps.Brushes.IdealForeground}"
+                                           Kind="Huawei" />
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
     <Border Margin="10"
             Padding="10"
             Background="AliceBlue"
@@ -41,6 +56,24 @@
                         <ComboBoxItem Content="5" />
                     </ComboBox>
                 </mah:MetroHeader>
+                <mah:MetroHeader Margin="0,5,0,5"
+                                 mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                                 mah:HeaderedControlHelper.HeaderForeground="{DynamicResource MahApps.Brushes.Accent}"
+                                 Header="服务器：">
+                    <TextBox Text="192.168.0.199:39015" />
+                </mah:MetroHeader>
+                <mah:MetroHeader Margin="0,5,0,5"
+                                 mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                                 mah:HeaderedControlHelper.HeaderForeground="{DynamicResource MahApps.Brushes.Accent}"
+                                 Header="用户名">
+                    <TextBox Text="select * from Employee e;" />
+                </mah:MetroHeader>
+                <mah:MetroHeader Margin="0,5,0,5"
+                                 mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                                 mah:HeaderedControlHelper.HeaderForeground="{DynamicResource MahApps.Brushes.Accent}"
+                                 Header="密码">
+                    <TextBox Text="select * from Employee e;" />
+                </mah:MetroHeader>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="2">
                 <mah:MetroHeader Margin="0,5,0,5"
@@ -49,7 +82,9 @@
                                  Header="请输入查询语句">
                     <TextBox Name="TbxSql"
                              Height="250"
-                             Text="select * from Employee e;" />
+                             Text="select * from Employee e;"
+                             TextWrapping="WrapWithOverflow"
+                             VerticalScrollBarVisibility="Auto" />
                 </mah:MetroHeader>
             </StackPanel>
             <StackPanel Grid.Row="1"

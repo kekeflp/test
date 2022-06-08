@@ -1,92 +1,72 @@
-﻿using System;
+﻿using Sap.Data.Hana;
+using System.Configuration;
 using System.Data;
-using System.Data.SQLite;
 
 namespace TableExportExcle
 {
     public class DBhelper
     {
-        private const string _connectionString = @"Data Source=C:\Users\kekef\AppData\Roaming\DBeaverData\workspace6\.metadata\sample-database-sqlite-1\Chinook.db;";
+        private static readonly string _connectionString = ConfigurationManager.ConnectionStrings[0].ConnectionString;
 
-        private static SQLiteConnection Con => new SQLiteConnection(_connectionString);
-
-        private static SQLiteCommand Cmd => Con.CreateCommand();
-
-        public static bool Update(string sql, params SQLiteParameter[] parameters)
+        public static bool Update(string sql, params HanaParameter[] parameters)
         {
-            var cmd = Cmd;
-            cmd.CommandText = sql;
-            try
+            using (HanaConnection connection = new HanaConnection(_connectionString))
             {
-                if (parameters != null)
-                {
-                    cmd.Parameters.AddRange(parameters);
-                }
-                return cmd.ExecuteNonQuery() > 0;
-            }
-            finally
-            {
-                cmd.Connection.Close();
-            }
-        }
-
-        public static object SelectForScalar(string sql, params SQLiteParameter[] parameters)
-        {
-            var cmd = Cmd;
-            cmd.CommandText = sql;
-            try
-            {
-                if (parameters != null)
-                {
-                    cmd.Parameters.AddRange(parameters);
-                }
-                return cmd.ExecuteScalar();
-            }
-            finally
-            {
-                cmd.Connection.Close();
-            }
-        }
-
-
-        public static SQLiteDataReader? SelectForDataReader(string sql, params SQLiteParameter[] parameters)
-        {
-            var cmd = Cmd;
-            cmd.CommandText = sql;
-            try
-            {
-                if (parameters != null)
-                {
-                    cmd.Parameters.AddRange(parameters);
-                }
-                return cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
-            }
-            catch (System.Exception)
-            {
-                cmd.Connection.Close();
-                return null;
-            }
-        }
-
-
-        public static DataTable ExecuteTable(string sql, params SQLiteParameter[] parameters)
-        {
-            try
-            {
-                var dt = new DataTable();
-                using (var sda = new SQLiteDataAdapter(sql, Con))
+                using (HanaCommand cmd = new HanaCommand(sql, connection))
                 {
                     if (parameters != null)
                     {
-                        sda.SelectCommand.Parameters.AddRange(parameters);
+                        cmd.Parameters.AddRange(parameters);
                     }
-                    sda.Fill(dt);
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+
+        public static object SelectForScalar(string sql, params HanaParameter[] parameters)
+        {
+            using (HanaConnection connection = new HanaConnection(_connectionString))
+            {
+                using (HanaCommand cmd = new HanaCommand(sql, connection))
+                {
+                    if (parameters != null)
+                    {
+                        cmd.Parameters.AddRange(parameters);
+                    }
+                    return cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public static HanaDataReader? SelectForDataReader(string sql, params HanaParameter[] parameters)
+        {
+            using (HanaConnection connection = new HanaConnection(_connectionString))
+            {
+                using (HanaCommand cmd = new HanaCommand(sql, connection))
+                {
+                    if (parameters != null)
+                    {
+                        cmd.Parameters.AddRange(parameters);
+                    }
+                    return cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+                }
+            }
+        }
+
+        public static DataTable ExecuteTable(string sql, params HanaParameter[] parameters)
+        {
+            DataTable dt = new DataTable();
+            using (HanaConnection connection = new HanaConnection(_connectionString))
+            {
+                using (HanaDataAdapter hda = new HanaDataAdapter(sql, connection))
+                {
+                    if (parameters != null)
+                    {
+                        hda.SelectCommand.Parameters.AddRange(parameters);
+                    }
+                    hda.Fill(dt);
                 }
                 return dt;
-            }
-            catch
-            {
-                throw new ArgumentException("语法错误！");
             }
         }
     }

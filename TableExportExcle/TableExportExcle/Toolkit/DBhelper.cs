@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Data;
 
-namespace TableExportExcle
+namespace TableExportExcle.Toolkit
 {
     public class DBhelper
     {
@@ -48,7 +48,7 @@ namespace TableExportExcle
                     {
                         cmd.Parameters.AddRange(parameters);
                     }
-                    return cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+                    return cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 }
             }
         }

@@ -6,9 +6,11 @@
                  xmlns:local="clr-namespace:TableExportExcle"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:viewmodel="clr-namespace:TableExportExcle.ViewModel"
                  Title="Table Export Excel"
                  Width="800"
                  Height="450"
+                 d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
                  GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
                  ResizeMode="CanMinimize"
                  ShowIconOnTitleBar="True"
@@ -17,13 +19,13 @@
                  mc:Ignorable="d">
     <mah:MetroWindow.IconTemplate>
         <DataTemplate>
-            <iconPacks:PackIconSimpleIcons Width="30"
-                                           Height="30"
-                                           Margin="4"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           Foreground="{DynamicResource MahApps.Brushes.IdealForeground}"
-                                           Kind="Huawei" />
+            <iconPacks:PackIconUnicons Width="30"
+                                       Height="30"
+                                       Margin="4"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource MahApps.Brushes.IdealForeground}"
+                                       Kind="BatteryBolt" />
         </DataTemplate>
     </mah:MetroWindow.IconTemplate>
     <Border Margin="10"
@@ -82,9 +84,10 @@
                                  Header="请输入查询语句">
                     <TextBox Name="TbxSql"
                              Height="250"
-                             Text="select * from Employee e;"
+                             Text="{Binding Sql}"
                              TextWrapping="WrapWithOverflow"
                              VerticalScrollBarVisibility="Auto" />
+                    <!--  Text="select * from Employee e;"  -->
                 </mah:MetroHeader>
             </StackPanel>
             <StackPanel Grid.Row="1"
@@ -92,9 +95,11 @@
                         VerticalAlignment="Top">
                 <TextBlock Margin="0,5,0,5" />
                 <Button Name="BtnOK"
-                        Click="BtnOK_Click"
+                        Command="{Binding ExportToExcel}"
+                        CommandParameter="{Binding ElementName=TbxSql, Path=Text}"
                         Content="导出"
                         Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
+                <!--  Click="BtnOK_Click"  -->
             </StackPanel>
             <StackPanel Grid.Row="3"
                         Grid.ColumnSpan="5"

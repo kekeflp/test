@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TableExportExcle.Framework
 {
@@ -17,7 +14,7 @@ namespace TableExportExcle.Framework
 
         public static void Execute(string key)
         {
-            // 取出字典中的标识，然后执行动作。
+            // 通过key去请求action委托执行（取出字典中的标识，然后执行动作）
             actions[key].Invoke();
         }
     }

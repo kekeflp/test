@@ -57,7 +57,10 @@ namespace TableExportExcle.ViewModel
             BtnShowDialog = new RelayCommand()
             {
                 // 点击后执行显示窗口，通过字符串为桥梁标识
-                DoExecute = obj => ActionStack.Execute("dialog")
+                DoExecute = obj =>
+                {
+                    ActionStack.Execute("dialog");
+                }
             };
         }
 

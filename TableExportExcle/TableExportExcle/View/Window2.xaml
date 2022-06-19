@@ -12,6 +12,6 @@
     <Grid>
         <TextBlock FontSize="48"
                    Foreground="DeepPink"
-                   Text="这是弹出的新窗口" />
+                   Text="{Binding FileName}" />
     </Grid>
 </Window>

@@ -24,9 +24,10 @@ namespace TableExportExcle
             InitializeComponent();
             this.DataContext = new MainViewModel();
             // 通过 字符串 和 ActionStack 作为桥梁，串接起View窗口和Viewmodel，
-            ActionStack.Register("dialog", () =>
+            ActionStack.Register("dialog", obj =>
             {
                 Window2 window2 = new Window2();
+                window2.DataContext = obj;
                 window2.ShowDialog();
             });
         }

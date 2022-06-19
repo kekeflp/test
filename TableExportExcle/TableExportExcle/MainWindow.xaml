@@ -113,7 +113,8 @@
                                 <Button Grid.Column="3"
                                         Margin="5"
                                         Command="{Binding DataContext.BtnShowDialog, RelativeSource={RelativeSource AncestorType=Window}}"
-                                        Content="弹出新窗口" />
+                                        CommandParameter="{Binding}"
+                                        Content="弹出" />
 
                             </Grid>
                         </DataTemplate>

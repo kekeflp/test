@@ -1,15 +1,9 @@
-﻿using MahApps.Metro.Controls.Dialogs;
-using NPOI.HSSF.UserModel;
-using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
-using System;
-using System.Collections.Generic;
+﻿using NPOI.SS.UserModel;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Input;
 using TableExportExcle.Framework;
 using TableExportExcle.Model;
-using TableExportExcle.Toolkit;
 
 namespace TableExportExcle.ViewModel
 {
@@ -59,7 +53,7 @@ namespace TableExportExcle.ViewModel
                 // 点击后执行显示窗口，通过字符串为桥梁标识
                 DoExecute = obj =>
                 {
-                    ActionStack.Execute("dialog");
+                    ActionStack.Execute("dialog", obj);
                 }
             };
         }

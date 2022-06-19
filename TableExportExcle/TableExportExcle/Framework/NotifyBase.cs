@@ -7,9 +7,9 @@ namespace TableExportExcle.Framework
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public void SetProperty<T>(ref T field, object value, [CallerMemberName] string propertyName = "")
+        public void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = "")
         {
-            field = (T?)value!;
+            field = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

@@ -8,7 +8,5 @@ namespace TableExportExcle.Model
 
         public string? FileName { get; set; }
 
-
-
     }
 }

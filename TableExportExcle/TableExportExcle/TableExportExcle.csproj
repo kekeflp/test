@@ -5,11 +5,13 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="NPOI" Version="2.5.6" />
   </ItemGroup>
 
@@ -21,7 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Assets\" />
-    <Folder Include="View\" />
     <Folder Include="Model\" />
   </ItemGroup>
 </Project>

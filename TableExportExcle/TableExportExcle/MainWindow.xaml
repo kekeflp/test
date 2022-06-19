@@ -83,12 +83,37 @@
                                  mah:HeaderedControlHelper.HeaderForeground="{DynamicResource MahApps.Brushes.Accent}"
                                  Header="请输入查询语句">
                     <TextBox Name="TbxSql"
-                             Height="250"
-                             Text="{Binding Sql}"
+                             Height="50"
+                             Text="{Binding SqlText}"
                              TextWrapping="WrapWithOverflow"
                              VerticalScrollBarVisibility="Auto" />
-                    <!--  Text="select * from Employee e;"  -->
                 </mah:MetroHeader>
+                <ItemsControl Height="200"
+                              Background="Pink"
+                              ItemsSource="{Binding ListData}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding}" />
+                                <TextBlock Grid.Column="1"
+                                           Margin="10,0,0,0"
+                                           Text="{Binding FileName}" />
+                                <!--  找windows下的DataContext中的BtnRemove  -->
+                                <Button Grid.Column="2"
+                                        Margin="5"
+                                        Command="{Binding DataContext.BtnRemove, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        CommandParameter="{Binding}"
+                                        Content="删除" />
+
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
             <StackPanel Grid.Row="1"
                         Grid.Column="5"

@@ -53,7 +53,14 @@ namespace TableExportExcle.ViewModel
                 // 点击后执行显示窗口，通过字符串为桥梁标识
                 DoExecute = obj =>
                 {
-                    ActionStack.Execute("dialog", obj);
+                    if (ActionStack.Execute("dialog", obj))
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
                 }
             };
         }

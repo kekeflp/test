@@ -24,12 +24,14 @@ namespace TableExportExcle
             InitializeComponent();
             this.DataContext = new MainViewModel();
             // 通过 字符串 和 ActionStack 作为桥梁，串接起View窗口和Viewmodel，
-            ActionStack.Register("dialog", obj =>
-            {
-                Window2 window2 = new Window2();
-                window2.DataContext = obj;
-                window2.ShowDialog();
-            });
+            ActionStack.Register("dialog", Dialog);
+        }
+
+        private bool Dialog(object obj)
+        {
+            Window2 window2 = new Window2();
+            window2.DataContext = obj;
+            return window2.ShowDialog() == true;
         }
 
         private void TableToExcel()

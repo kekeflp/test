@@ -29,6 +29,8 @@ namespace TableExportExcle.ViewModel
 
         public ICommand ExportToExcel { get; private set; }
         public ICommand BtnRemove { get; private set; }
+        public ICommand BtnShowDialog { get; private set; }
+
         public MainViewModel()
         {
             ExportToExcel = new RelayCommand()
@@ -50,6 +52,12 @@ namespace TableExportExcle.ViewModel
                 {
                     ListData.Remove(obj as MainModel);
                 }
+            };
+
+            BtnShowDialog = new RelayCommand()
+            {
+                // 点击后执行显示窗口，通过字符串为桥梁标识
+                DoExecute = obj => ActionStack.Execute("dialog")
             };
         }
 

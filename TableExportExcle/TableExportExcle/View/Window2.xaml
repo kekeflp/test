@@ -1,0 +1,17 @@
+﻿<Window x:Class="TableExportExcle.View.Window2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:TableExportExcle.View"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="窗口交互"
+        Width="450"
+        Height="300"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d">
+    <Grid>
+        <TextBlock FontSize="48"
+                   Foreground="DeepPink"
+                   Text="这是弹出的新窗口" />
+    </Grid>
+</Window>

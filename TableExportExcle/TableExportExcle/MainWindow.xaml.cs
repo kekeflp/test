@@ -9,6 +9,8 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using TableExportExcle.Toolkit;
 using TableExportExcle.ViewModel;
+using TableExportExcle.Framework;
+using TableExportExcle.View;
 
 namespace TableExportExcle
 {
@@ -21,6 +23,12 @@ namespace TableExportExcle
         {
             InitializeComponent();
             this.DataContext = new MainViewModel();
+            // 通过 字符串 和 ActionStack 作为桥梁，串接起View窗口和Viewmodel，
+            ActionStack.Register("dialog", () =>
+            {
+                Window2 window2 = new Window2();
+                window2.ShowDialog();
+            });
         }
 
         private void TableToExcel()
